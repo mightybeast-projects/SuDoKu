@@ -1,11 +1,11 @@
 using NUnit.Framework;
 
 [TestFixture]
-class GeneralTests: TestsSetup
+class GeneralTests : TestsSetup
 {
     [Test]
     public void NewMatrixIsNotNull()
     {
-        Assert.NotNull(_sudoku.matrix);
+        Assert.NotNull(_sudokuMatrix);
     }
 }

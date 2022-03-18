@@ -2,29 +2,29 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 [TestFixture]
-class RowTests: TestsSetup
+class RowTests : TestsSetup
 {
     [Test]
     public void FirstRowIsTrulyRandom()
     {
-        _validationStorage = new List<int>();
-
-        for (int i = 0; i < _sudoku.matrix.GetLength(0); i++)
-            if (!_validationStorage.Contains(_sudoku.matrix[i, 0]))
-                    _validationStorage.Add(_sudoku.matrix[i, 0]);
-
-        Assert.AreEqual(9, _validationStorage.Count);
+        AssertRowIsTrulyRandom(0);
     }
 
     [Test]
-    public void SecondRowIsTrulyRandom()
+    public void AllRowsAreTrulyRandom()
     {
-        _validationStorage = new List<int>();
+        for (int i = 0; i < 9; i++)
+            AssertRowIsTrulyRandom(i);
+    }
 
-        for (int i = 0; i < _sudoku.matrix.GetLength(0); i++)
-            if (!_validationStorage.Contains(_sudoku.matrix[i, 1]))
-                    _validationStorage.Add(_sudoku.matrix[i, 1]);
+    private void AssertRowIsTrulyRandom(int row)
+    {
+        _numbersStorage = new List<int>();
 
-        Assert.AreEqual(9, _validationStorage.Count);
+        for (int i = 0; i < _sudokuMatrix.GetLength(0); i++)
+            if (!_numbersStorage.Contains(_sudokuMatrix[i, row]))
+                    _numbersStorage.Add(_sudokuMatrix[i, row]);
+
+        Assert.AreEqual(9, _numbersStorage.Count);
     }
 }

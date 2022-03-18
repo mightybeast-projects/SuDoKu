@@ -2,19 +2,20 @@ using System;
 
 class SuDoKu
 {
-    public int[,] matrix;
-
     private Random _rnd = new Random();
+    private int[,] _matrix;
     private int _currentNumber;
 
-    public void Generate()
+    public int[,] Generate()
     {
-        matrix = new int[9, 9];
+        _matrix = new int[9, 9];
 
         for (int i = 0; i < 9; i += 3)
             FillDiagonalSquare(i, i);
 
-        SolveSudoku(0, 0);
+        FillEmptySpace(0, 0);
+
+        return _matrix;
     }
 
     private void FillDiagonalSquare(int row, int col)
@@ -34,10 +35,10 @@ class SuDoKu
                 break;
         }
 
-        matrix[i, j] = _currentNumber;
+        _matrix[i, j] = _currentNumber;
     }
 
-    public bool SolveSudoku(int row, int col)
+    public bool FillEmptySpace(int row, int col)
     {
         if (row == 8 && col == 9)
             return true;
@@ -48,20 +49,20 @@ class SuDoKu
             col = 0;
         }
 
-        if (matrix[row, col] != 0)
-            return SolveSudoku(row, col + 1);
+        if (_matrix[row, col] != 0)
+            return FillEmptySpace(row, col + 1);
 
         for (int num = 1; num < 10; num++)
         {
             _currentNumber = num;
             if (CurrentNumberIsSafeToFill(row, col))
             {
-                matrix[row, col] = num;
+                _matrix[row, col] = num;
 
-                if (SolveSudoku(row, col + 1))
+                if (FillEmptySpace(row, col + 1))
                     return true;
             }
-            matrix[row, col] = 0;
+            _matrix[row, col] = 0;
         }
         return false;
     }
@@ -80,23 +81,23 @@ class SuDoKu
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                if (matrix[i + startRow, j + startCol] == _currentNumber)
+                if (_matrix[i + startRow, j + startCol] == _currentNumber)
                     return false;
         return true;
     }
 
     private bool RowDoNotContainCurrentNumber(int row)
     {
-        for (int i = 0; i < matrix.GetLength(0); i++)
-            if (matrix[i, row] == _currentNumber)
+        for (int i = 0; i < _matrix.GetLength(0); i++)
+            if (_matrix[i, row] == _currentNumber)
                 return false;
         return true;
     }
 
     private bool ColDoNotContainCurrentNumber(int col)
     {
-        for (int i = 0; i < matrix.GetLength(0); i++)
-            if (matrix[col, i] == _currentNumber)
+        for (int i = 0; i < _matrix.GetLength(0); i++)
+            if (_matrix[col, i] == _currentNumber)
                 return false;
         return true;
     }
