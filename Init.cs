@@ -6,7 +6,6 @@ class Init
 
     static void Main()
     {
-        _sudoku = new SuDoKu(1);
         _sudoku.Generate();
         PrintMatrix(_sudoku.matrix);
     }

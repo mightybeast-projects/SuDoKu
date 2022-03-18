@@ -4,14 +4,7 @@ class SuDoKu
 {
     public int[,] matrix;
 
-    private Random _rnd;
-
-    public SuDoKu() {}
-
-    public SuDoKu(int rndSeed)
-    {
-        _rnd = new Random(rndSeed);
-    }
+    private Random _rnd = new Random();
 
     public void Generate()
     {
@@ -33,10 +26,10 @@ class SuDoKu
 
         for (int i = squareOriginX; i < squareOriginX + 3; i++)
             for (int j = squareOriginY; j < squareOriginY + 3; j++)
-                FillNumber(squareOrigin, i, j);
+                FillNumber(i, j, squareOrigin);
     }
 
-    private void FillNumber(Vector2 squareOrigin, int i, int j)
+    private void FillNumber(int i, int j, Vector2 squareOrigin)
     {
         int rndNumber;
         while (true)
