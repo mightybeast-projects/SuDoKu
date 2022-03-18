@@ -1,55 +1,103 @@
-using System.Numerics;
 using System;
+
 class SuDoKu
 {
     public int[,] matrix;
 
     private Random _rnd = new Random();
+    private int _currentNumber;
 
     public void Generate()
     {
         matrix = new int[9, 9];
 
-        Vector2 squareOrigin;
-        squareOrigin = new Vector2(0, 0);
-        FillSquare(squareOrigin);
-        squareOrigin = new Vector2(3, 3);
-        FillSquare(squareOrigin);
-        squareOrigin = new Vector2(6, 6);
-        FillSquare(squareOrigin);
+        for (int i = 0; i < 9; i += 3)
+            FillDiagonalSquare(i, i);
+
+        SolveSudoku(0, 0);
     }
 
-    private void FillSquare(Vector2 squareOrigin)
+    private void FillDiagonalSquare(int row, int col)
     {
-        int squareOriginX = (int) squareOrigin.X;
-        int squareOriginY = (int) squareOrigin.Y;
-
-        for (int i = squareOriginX; i < squareOriginX + 3; i++)
-            for (int j = squareOriginY; j < squareOriginY + 3; j++)
-                FillNumber(i, j, squareOrigin);
+        for (int i = row; i < row + 3; i++)
+            for (int j = col; j < col + 3; j++)
+                FillNumber(i, j);
     }
 
-    private void FillNumber(int i, int j, Vector2 squareOrigin)
+    private void FillNumber(int i, int j)
     {
-        int rndNumber;
         while (true)
         {
-            rndNumber = _rnd.Next(1, 10);
-            if (!SquareContainsNumber(squareOrigin, rndNumber))
+            _currentNumber = _rnd.Next(1, 10);
+
+            if (SquareDoNotContainCurrentNumber(i, j))
                 break;
         }
-        matrix[i, j] = rndNumber;
+
+        matrix[i, j] = _currentNumber;
     }
 
-    private bool SquareContainsNumber(Vector2 squareOrigin, int number)
+    public bool SolveSudoku(int row, int col)
     {
-        int squareOriginX = (int) squareOrigin.X;
-        int squareOriginY = (int) squareOrigin.Y;
+        if (row == 8 && col == 9)
+            return true;
 
-        for (int i = squareOriginX; i < squareOriginX + 3; i++)
-            for (int j = squareOriginY; j < squareOriginY + 3; j++)
-                if (matrix[i, j] == number)
+        if (col == 9)
+        {
+            row++;
+            col = 0;
+        }
+
+        if (matrix[row, col] != 0)
+            return SolveSudoku(row, col + 1);
+
+        for (int num = 1; num < 10; num++)
+        {
+            _currentNumber = num;
+            if (CurrentNumberIsSafeToFill(row, col))
+            {
+                matrix[row, col] = num;
+
+                if (SolveSudoku(row, col + 1))
                     return true;
+            }
+            matrix[row, col] = 0;
+        }
         return false;
+    }
+
+    private bool CurrentNumberIsSafeToFill(int i, int j)
+    {
+        return SquareDoNotContainCurrentNumber(i, j) &&
+                RowDoNotContainCurrentNumber(j) &&
+                ColDoNotContainCurrentNumber(i);
+    }
+
+    private bool SquareDoNotContainCurrentNumber(int row, int col)
+    {
+        int startRow = row - row % 3;
+        int startCol = col - col % 3;
+
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                if (matrix[i + startRow, j + startCol] == _currentNumber)
+                    return false;
+        return true;
+    }
+
+    private bool RowDoNotContainCurrentNumber(int row)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+            if (matrix[i, row] == _currentNumber)
+                return false;
+        return true;
+    }
+
+    private bool ColDoNotContainCurrentNumber(int col)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+            if (matrix[col, i] == _currentNumber)
+                return false;
+        return true;
     }
 }

@@ -3,22 +3,58 @@ using System.Numerics;
 using NUnit.Framework;
 
 [TestFixture]
-class SquareTests : SetupTests
+class SquareTests : TestsSetup
 {
     [Test]
-    public void NewMatrixBottomLeftSquareIsTrulyRandom()
+    public void BottomLeftSquareIsTrulyRandom()
     {
         AssertSquareIsTrulyRandom(new Vector2(0, 0));
     }
 
     [Test]
-    public void NewMatrixCenterSquareIsTrulyRandom()
+    public void BottomCenterSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(0, 3));
+    }
+
+    [Test]
+    public void BottomRightSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(0, 6));
+    }
+
+    [Test]
+    public void MiddleLeftSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(0, 3));
+    }
+
+    [Test]
+    public void CenterSquareIsTrulyRandom()
     {
         AssertSquareIsTrulyRandom(new Vector2(3, 3));
     }
 
     [Test]
-    public void NewMatrixTopRightSquareIsTrulyRandom()
+    public void MiddleRightSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(0, 6));
+    }
+
+    [Test]
+    public void TopLeftSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(0, 6));
+    }
+
+    [Test]
+    public void TopCenterSquareIsTrulyRandom()
+    {
+        AssertSquareIsTrulyRandom(new Vector2(3, 6));
+    }
+
+    [Test]
+    public void TopRightSquareIsTrulyRandom()
     {
         AssertSquareIsTrulyRandom(new Vector2(6, 6));
     }

@@ -3,22 +3,16 @@ using System.Numerics;
 using NUnit.Framework;
 
 [TestFixture]
-class SetupTests
+class TestsSetup
 {
     protected SuDoKu _sudoku;
     protected List<int> _validationStorage;
 
     [SetUp]
-    public void Setup()
+    protected void Setup()
     {
         _sudoku = new SuDoKu();
         _sudoku.Generate();
-    }
-
-    [Test]
-    public void NewMatrixIsNotNull()
-    {
-        Assert.NotNull(_sudoku.matrix);
     }
 }
 
