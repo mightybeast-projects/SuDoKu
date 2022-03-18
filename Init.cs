@@ -7,8 +7,9 @@ class Init
     static void Main()
     {
         _sudoku = new SuDoKu();
-        _sudoku.Generate();
-        PrintMatrix(_sudoku.matrix);
+        int[,] sudokuMatrix = _sudoku.Generate();
+        PrintMatrix(sudokuMatrix);
+        
     }
 
     static void PrintMatrix(int[,] matrix)
