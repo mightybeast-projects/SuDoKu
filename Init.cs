@@ -3,13 +3,19 @@ using System;
 class Init
 {
     static SuDoKu _sudoku;
+    static Puzzler _puzzler;
+    static int[,] _sudokuMatrix;
 
     static void Main()
     {
         _sudoku = new SuDoKu();
-        int[,] sudokuMatrix = _sudoku.Generate();
-        PrintMatrix(sudokuMatrix);
-        
+        _sudokuMatrix = _sudoku.GenerateMatrix();
+        PrintMatrix(_sudokuMatrix);
+
+        _puzzler = new Puzzler();
+        _sudokuMatrix = 
+            _puzzler.CreateNewSudokuPuzzle(_sudokuMatrix, Difficulty.EASY);
+        PrintMatrix(_sudokuMatrix);
     }
 
     static void PrintMatrix(int[,] matrix)
@@ -22,7 +28,10 @@ class Init
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
                 if (j % 3 == 0) Console.Write("|");
-                Console.Write(" " + matrix[j, i] + " ");
+                if (matrix[j, i] != 0)
+                    Console.Write(" " + matrix[j, i] + " ");
+                else
+                    Console.Write(" . ");
             }
             
             Console.WriteLine("|");
