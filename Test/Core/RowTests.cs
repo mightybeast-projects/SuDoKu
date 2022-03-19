@@ -17,7 +17,7 @@ class RowTests : TestsSetup
             AssertRowIsTrulyRandom(i);
     }
 
-    private void AssertRowIsTrulyRandom(int row)
+    void AssertRowIsTrulyRandom(int row)
     {
         _numbersStorage = new List<int>();
 

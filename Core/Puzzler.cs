@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using System;
 
+enum Difficulty { EASY, MEDIUM, HARD }
+
 class Puzzler
 {
-    private Random _rnd = new Random();
-    private Dictionary<Difficulty, int> _difficultyHints 
+    Random _rnd = new Random();
+    Dictionary<Difficulty, int> _difficultyHints 
         = new Dictionary<Difficulty, int>()
-        {
-            { Difficulty.EASY, 45 },
-            { Difficulty.MEDIUM, 35 },
-            { Difficulty.HARD, 28 }
-        };
-    private int[,] _sudokuMatrix;
+    {
+        { Difficulty.EASY, 45 },
+        { Difficulty.MEDIUM, 35 },
+        { Difficulty.HARD, 28 }
+    };
+    int[,] _sudokuMatrix;
 
     public int[,] CreateNewSudokuPuzzle(int[,] sudokuMatrix, 
         Difficulty difficulty)
@@ -25,7 +27,7 @@ class Puzzler
         return _sudokuMatrix;
     }
 
-    private void RemoveRandomNumber()
+    void RemoveRandomNumber()
     {
         int i = _rnd.Next(0, 9);
         int j = _rnd.Next(0, 9);

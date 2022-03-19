@@ -17,7 +17,7 @@ class ColTests : TestsSetup
             AssertColIsTrulyRandom(i);
     }
 
-    private void AssertColIsTrulyRandom(int col)
+    void AssertColIsTrulyRandom(int col)
     {
         _numbersStorage = new List<int>();
 

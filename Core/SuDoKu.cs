@@ -2,9 +2,9 @@ using System;
 
 class SuDoKu
 {
-    private Random _rnd = new Random();
-    private int[,] _matrix;
-    private int _currentNumber;
+    Random _rnd = new Random();
+    int[,] _matrix;
+    int _currentNumber;
 
     public int[,] GenerateMatrix()
     {
@@ -18,14 +18,14 @@ class SuDoKu
         return _matrix;
     }
 
-    private void FillDiagonalSquare(int row, int col)
+    void FillDiagonalSquare(int row, int col)
     {
         for (int i = row; i < row + 3; i++)
             for (int j = col; j < col + 3; j++)
                 FillNumber(i, j);
     }
 
-    private void FillNumber(int i, int j)
+    void FillNumber(int i, int j)
     {
         while (true)
         {
@@ -38,7 +38,7 @@ class SuDoKu
         _matrix[i, j] = _currentNumber;
     }
 
-    public bool FillEmptySpace(int row, int col)
+    bool FillEmptySpace(int row, int col)
     {
         if (row == 8 && col == 9)
             return true;
@@ -67,14 +67,14 @@ class SuDoKu
         return false;
     }
 
-    private bool CurrentNumberIsSafeToFill(int i, int j)
+    bool CurrentNumberIsSafeToFill(int i, int j)
     {
         return SquareDoNotContainCurrentNumber(i, j) &&
                 RowDoNotContainCurrentNumber(j) &&
                 ColDoNotContainCurrentNumber(i);
     }
 
-    private bool SquareDoNotContainCurrentNumber(int row, int col)
+    bool SquareDoNotContainCurrentNumber(int row, int col)
     {
         int startRow = row - row % 3;
         int startCol = col - col % 3;
@@ -86,7 +86,7 @@ class SuDoKu
         return true;
     }
 
-    private bool RowDoNotContainCurrentNumber(int row)
+    bool RowDoNotContainCurrentNumber(int row)
     {
         for (int i = 0; i < _matrix.GetLength(0); i++)
             if (_matrix[i, row] == _currentNumber)
@@ -94,7 +94,7 @@ class SuDoKu
         return true;
     }
 
-    private bool ColDoNotContainCurrentNumber(int col)
+    bool ColDoNotContainCurrentNumber(int col)
     {
         for (int i = 0; i < _matrix.GetLength(0); i++)
             if (_matrix[col, i] == _currentNumber)

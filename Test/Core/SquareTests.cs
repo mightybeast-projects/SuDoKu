@@ -19,7 +19,7 @@ class SquareTests : TestsSetup
                 AssertSquareIsTrulyRandom(new Vector2(j, i));
     }
 
-    private void AssertSquareIsTrulyRandom(Vector2 squareOrigin)
+    void AssertSquareIsTrulyRandom(Vector2 squareOrigin)
     {
         int squareOriginX = (int) squareOrigin.X;
         int squareOriginY = (int) squareOrigin.Y;
