@@ -1,8 +1,10 @@
+using Terminal.Gui;
+
 class Init
 {
     static void Main()
     {
-        ConsoleTest consoleTest = new ConsoleTest();
-        consoleTest.Init();
+        GUITest guiTest = new GUITest();
+        guiTest.Init();
     }
 }

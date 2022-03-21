@@ -6,7 +6,7 @@ class SuDoKu
     int[,] _matrix;
     int _currentNumber;
 
-    public int[,] GenerateMatrix()
+    public int[,] GenerateSuDoKu()
     {
         _matrix = new int[9, 9];
 

@@ -15,6 +15,6 @@ class TestsSetup
     {
         _sudoku = new SuDoKu();
         _puzzler = new Puzzler();
-        _sudokuMatrix = _sudoku.GenerateMatrix();
+        _sudokuMatrix = _sudoku.GenerateSuDoKu();
     }
 }

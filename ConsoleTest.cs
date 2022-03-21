@@ -9,12 +9,12 @@ class ConsoleTest
     public void Init()
     {
         _sudoku = new SuDoKu();
-        _sudokuMatrix = _sudoku.GenerateMatrix();
+        _sudokuMatrix = _sudoku.GenerateSuDoKu();
         PrintMatrix(_sudokuMatrix);
 
         _puzzler = new Puzzler();
         _sudokuMatrix = 
-            _puzzler.CreateNewSudokuPuzzle(_sudokuMatrix, Difficulty.EASY);
+            _puzzler.GenerateSuDoKuPuzzle(_sudokuMatrix, Difficulty.EASY);
         PrintMatrix(_sudokuMatrix);
     }
 

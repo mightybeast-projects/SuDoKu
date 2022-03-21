@@ -15,7 +15,7 @@ class Puzzler
     };
     int[,] _sudokuMatrix;
 
-    public int[,] CreateNewSudokuPuzzle(int[,] sudokuMatrix, 
+    public int[,] GenerateSuDoKuPuzzle(int[,] sudokuMatrix, 
         Difficulty difficulty)
     {
         _sudokuMatrix = sudokuMatrix;
