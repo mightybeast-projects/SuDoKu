@@ -35,43 +35,64 @@ class SuDoKuWindow : Window
     void InitializeSudokuMatrix()
     {
         for (int i = 0; i < _sudokuPuzzle.GetLength(0); i++)
+            AddSudokuMatrixRow(i);
+    }
+
+    private void AddSudokuMatrixRow(int i)
+    {
+        if (i % 3 == 0)
         {
-            _jOffset = 0;
-            if (i % 3 == 0)
-            {
-                AddNewReadOnlyTextField("+---------+---------+---------+", 0, i + _iOffset);
-                _iOffset++;
-            }
-
-            for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
-            {
-                if (j % 3 == 0)
-                {
-                    AddNewReadOnlyTextField("|", j + _jOffset + j * 2, i + _iOffset);
-                    _jOffset++;
-                }
-
-                AddSudokuMatrixEntry(i, j);
-            }
-
-            AddNewReadOnlyTextField("|", 9 + _jOffset + 18, i + _iOffset);
+            AddHorizontalSeparator(0, i + _iOffset);
+            _iOffset++;
         }
 
-        AddNewReadOnlyTextField("+---------+---------+---------+", 0, 9 + _iOffset);
+        for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
+            AddSudokuMatrixCell(i, j);
+
+        if (i == _sudokuPuzzle.GetLength(0) - 1)
+            AddHorizontalSeparator(0, 9 + _iOffset);
+    }
+
+    private void AddSudokuMatrixCell(int i, int j)
+    {
+        if (j % 3 == 0)
+        {
+            AddVerticalSeparator(j + _jOffset + j * 2, i + _iOffset);
+            _jOffset++;
+        }
+
+        AddSudokuMatrixEntry(i, j);
+
+        if (j == _sudokuPuzzle.GetLength(1) - 1)
+        {
+            AddVerticalSeparator(9 + _jOffset + 18, i + _iOffset);
+            _jOffset = 0;
+        }
     }
 
     private void AddSudokuMatrixEntry(int i, int j)
     {
-        AddNewReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
+        AddReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
         AddNewSuDoKuTextField(i, j);
-        AddNewReadOnlyTextField(" ", j + _jOffset + j * 2 + 2, i + _iOffset);
+        AddReadOnlyTextField(" ", j + _jOffset + j * 2 + 2, i + _iOffset);
     }
 
-    void AddNewReadOnlyTextField(string text, int x, int y)
+    void AddHorizontalSeparator(int x, int y)
+    {
+        AddReadOnlyTextField("+---------+---------+---------+", x, y);
+    }
+
+    void AddVerticalSeparator(int x, int y)
+    {
+        AddReadOnlyTextField("|", x, y);
+    }
+
+    void AddReadOnlyTextField(string text, int x, int y)
     {
         var readOnlyField = new ReadOnlyTextField(text);
         readOnlyField.X = x;
         readOnlyField.Y = y;
+        
         Add(readOnlyField);
     }
 
