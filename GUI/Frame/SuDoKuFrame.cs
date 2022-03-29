@@ -12,20 +12,20 @@ class SuDoKuFrame : FrameView
         InitializeFrameSettings();
     }
 
-    public void StartGame(Difficulty difficulty)
+    public void InitializeSudokuPuzzle(Difficulty difficulty)
     {
         _puzzleDifficulty = difficulty;
 
-        InitializeSuDoKuPuzzle();
+        InstantiateSudokuPuzzle();
         DrawSudokuMatrix();
     }
 
-    public void ResetGame()
+    public void RedrawSudokuMatrix()
     {
         DrawSudokuMatrix();
     }
 
-    void InitializeSuDoKuPuzzle()
+    void InstantiateSudokuPuzzle()
     {
         SuDoKu sudoku = new SuDoKu();
         Puzzler puzzler = new Puzzler();
