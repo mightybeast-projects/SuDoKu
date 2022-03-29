@@ -1,4 +1,4 @@
-using NStack;
+using System.Text.RegularExpressions;
 using Terminal.Gui;
 
 class SuDoKuTextField : TextField
@@ -13,7 +13,12 @@ class SuDoKuTextField : TextField
 
     public override bool OnLeave(View view)
     {
-        if (Text == "") Text = ".";
+        if (Text == "" || TextIsNotANumber()) Text = ".";
         return base.OnLeave(view);
+    }
+
+    bool TextIsNotANumber()
+    {
+        return !Regex.IsMatch(Text.ToString(), @"^\d+$");
     }
 }

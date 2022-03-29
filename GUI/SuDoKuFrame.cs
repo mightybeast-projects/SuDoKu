@@ -1,16 +1,28 @@
 using Terminal.Gui;
 
-class SuDoKuWindow : Window
+class SuDoKuFrame : FrameView
 {
+    Difficulty _puzzleDifficulty;
     int[,] _sudokuPuzzle;
     int _iOffset = 0;
     int _jOffset = 0;
 
-    public SuDoKuWindow() : base()
+    public SuDoKuFrame() : base()
     {
+        InitializeFrameSettings();
+    }
+
+    public void StartGame(Difficulty difficulty)
+    {
+        _puzzleDifficulty = difficulty;
+
         InitializeSuDoKuPuzzle();
-        InitializeWindowSettings();
-        InitializeSudokuMatrix();
+        DrawSudokuMatrix();
+    }
+
+    public void ResetGame()
+    {
+        DrawSudokuMatrix();
     }
 
     void InitializeSuDoKuPuzzle()
@@ -19,12 +31,11 @@ class SuDoKuWindow : Window
         Puzzler puzzler = new Puzzler();
         int[,] sudokuMatrix = sudoku.GenerateSuDoKu();
         _sudokuPuzzle = 
-            puzzler.GenerateSuDoKuPuzzle(sudokuMatrix, Difficulty.EASY);
+            puzzler.GenerateSuDoKuPuzzle(sudokuMatrix, _puzzleDifficulty);
     }
 
-    void InitializeWindowSettings()
+    void InitializeFrameSettings()
     {
-        X = Pos.Center();
         Y = Pos.Center();
         Width = 33;
         Height = 15;
@@ -32,62 +43,65 @@ class SuDoKuWindow : Window
         ColorScheme = Colors.Menu;
     }
 
-    void InitializeSudokuMatrix()
+    void DrawSudokuMatrix()
     {
+        RemoveAll();
+        _iOffset = 0;
+
         for (int i = 0; i < _sudokuPuzzle.GetLength(0); i++)
-            AddSudokuMatrixRow(i);
+            DrawSudokuMatrixRow(i);
     }
 
-    private void AddSudokuMatrixRow(int i)
+    private void DrawSudokuMatrixRow(int i)
     {
         if (i % 3 == 0)
         {
-            AddHorizontalSeparator(0, i + _iOffset);
+            DrawHorizontalSeparator(0, i + _iOffset);
             _iOffset++;
         }
 
         for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
-            AddSudokuMatrixCell(i, j);
+            DrawSudokuMatrixCell(i, j);
 
         if (i == _sudokuPuzzle.GetLength(0) - 1)
-            AddHorizontalSeparator(0, 9 + _iOffset);
+            DrawHorizontalSeparator(0, 9 + _iOffset);
     }
 
-    private void AddSudokuMatrixCell(int i, int j)
+    private void DrawSudokuMatrixCell(int i, int j)
     {
         if (j % 3 == 0)
         {
-            AddVerticalSeparator(j + _jOffset + j * 2, i + _iOffset);
+            DrawVerticalSeparator(j + _jOffset + j * 2, i + _iOffset);
             _jOffset++;
         }
 
-        AddSudokuMatrixEntry(i, j);
+        DrawSudokuMatrixEntry(i, j);
 
         if (j == _sudokuPuzzle.GetLength(1) - 1)
         {
-            AddVerticalSeparator(9 + _jOffset + 18, i + _iOffset);
+            DrawVerticalSeparator(9 + _jOffset + 18, i + _iOffset);
             _jOffset = 0;
         }
     }
 
-    private void AddSudokuMatrixEntry(int i, int j)
+    private void DrawSudokuMatrixEntry(int i, int j)
     {
-        AddReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
-        AddNewSuDoKuTextField(i, j);
-        AddReadOnlyTextField(" ", j + _jOffset + j * 2 + 2, i + _iOffset);
+        DrawReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
+        DrawNewSuDoKuTextField(i, j);
+        DrawReadOnlyTextField(" ", j + _jOffset + j * 2 + 2, i + _iOffset);
     }
 
-    void AddHorizontalSeparator(int x, int y)
+    void DrawHorizontalSeparator(int x, int y)
     {
-        AddReadOnlyTextField("+---------+---------+---------+", x, y);
+        DrawReadOnlyTextField("+---------+---------+---------+", x, y);
     }
 
-    void AddVerticalSeparator(int x, int y)
+    void DrawVerticalSeparator(int x, int y)
     {
-        AddReadOnlyTextField("|", x, y);
+        DrawReadOnlyTextField("|", x, y);
     }
 
-    void AddReadOnlyTextField(string text, int x, int y)
+    void DrawReadOnlyTextField(string text, int x, int y)
     {
         var readOnlyField = new ReadOnlyTextField(text);
         readOnlyField.X = x;
@@ -96,7 +110,7 @@ class SuDoKuWindow : Window
         Add(readOnlyField);
     }
 
-    void AddNewSuDoKuTextField(int i, int j)
+    void DrawNewSuDoKuTextField(int i, int j)
     {
         int sudokuNumber = _sudokuPuzzle[j, i];
         var sudokuNumberField = new TextField();

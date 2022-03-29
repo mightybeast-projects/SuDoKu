@@ -1,6 +1,6 @@
 using System;
 
-class ConsoleTest
+class CoreTest
 {
     SuDoKu _sudoku;
     Puzzler _puzzler;
