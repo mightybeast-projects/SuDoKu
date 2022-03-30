@@ -13,12 +13,12 @@ class Puzzler
         { Difficulty.MEDIUM, 35 },
         { Difficulty.HARD, 28 }
     };
-    int[,] _sudokuMatrix;
+    int[,] _sudokuMatrix = new int[9,9];
 
-    public int[,] GenerateSuDoKuPuzzle(int[,] sudokuMatrix, 
-        Difficulty difficulty)
+    public int[,] GenerateSuDoKuPuzzle(int[,] sudokuMatrix, Difficulty difficulty)
     {
-        _sudokuMatrix = sudokuMatrix;
+        _sudokuMatrix = sudokuMatrix.Clone() as int[,];
+
         int numbersToRemove = 81 - _difficultyHints[difficulty];
 
         for (int k = 0; k < numbersToRemove; k++)

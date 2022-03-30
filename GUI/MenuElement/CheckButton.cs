@@ -5,4 +5,5 @@ class CheckButton : MenuButton
     {
         button.Enabled = false;
     }
+    
 }

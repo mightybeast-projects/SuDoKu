@@ -5,17 +5,19 @@ class CoreTest
     SuDoKu _sudoku;
     Puzzler _puzzler;
     int[,] _sudokuMatrix;
+    int[,] _sudokuPuzzle;
 
     public void Init()
     {
         _sudoku = new SuDoKu();
         _sudokuMatrix = _sudoku.GenerateSuDoKu();
-        PrintMatrix(_sudokuMatrix);
 
         _puzzler = new Puzzler();
-        _sudokuMatrix = 
+        _sudokuPuzzle = 
             _puzzler.GenerateSuDoKuPuzzle(_sudokuMatrix, Difficulty.EASY);
+
         PrintMatrix(_sudokuMatrix);
+        PrintMatrix(_sudokuPuzzle);
     }
 
     void PrintMatrix(int[,] matrix)

@@ -25,6 +25,11 @@ class GUIGame
 
     public void ResetGame()
     {
-        _sudokuFrame.RedrawSudokuMatrix();
+        _sudokuFrame.ResetSudokuPuzzle();
+    }
+
+    public void GiveAHint()
+    {
+        _sudokuFrame.ShowHint();
     }
 }

@@ -1,9 +1,13 @@
+using System.Diagnostics;
+using System;
 using Terminal.Gui;
 
 class SuDoKuFrame : FrameView
 {
     Difficulty _puzzleDifficulty;
+    int[,] _sudokuMatrix;
     int[,] _sudokuPuzzle;
+    int[,] _sudokuPuzzleCopy;
     int _iOffset = 0;
     int _jOffset = 0;
 
@@ -17,21 +21,42 @@ class SuDoKuFrame : FrameView
         _puzzleDifficulty = difficulty;
 
         InstantiateSudokuPuzzle();
-        DrawSudokuMatrix();
+        DrawSudokuPuzzle();
     }
 
-    public void RedrawSudokuMatrix()
+    public void ResetSudokuPuzzle()
     {
-        DrawSudokuMatrix();
+        _sudokuPuzzle = _sudokuPuzzleCopy.Clone() as int[,];
+
+        DrawSudokuPuzzle();
+    }
+
+    public void ShowHint()
+    {
+        if (!SudokuPuzzleHasEmptyField()) return;
+
+        Random rnd = new Random();
+        int i, j;
+        while(true)
+        {
+            i = rnd.Next(9);
+            j = rnd.Next(9);
+            if (_sudokuPuzzle[j, i] == 0) break;
+        }
+
+        _sudokuPuzzle[j, i] = _sudokuMatrix[j, i];
+
+        DrawSudokuPuzzle();
     }
 
     void InstantiateSudokuPuzzle()
     {
         SuDoKu sudoku = new SuDoKu();
         Puzzler puzzler = new Puzzler();
-        int[,] sudokuMatrix = sudoku.GenerateSuDoKu();
+        _sudokuMatrix = sudoku.GenerateSuDoKu();
         _sudokuPuzzle = 
-            puzzler.GenerateSuDoKuPuzzle(sudokuMatrix, _puzzleDifficulty);
+            puzzler.GenerateSuDoKuPuzzle(_sudokuMatrix, _puzzleDifficulty);
+        _sudokuPuzzleCopy = _sudokuPuzzle.Clone() as int[,];
     }
 
     void InitializeFrameSettings()
@@ -43,16 +68,16 @@ class SuDoKuFrame : FrameView
         ColorScheme = Colors.Menu;
     }
 
-    void DrawSudokuMatrix()
+    void DrawSudokuPuzzle()
     {
         RemoveAll();
         _iOffset = 0;
 
         for (int i = 0; i < _sudokuPuzzle.GetLength(0); i++)
-            DrawSudokuMatrixRow(i);
+            DrawSudokuPuzzleRow(i);
     }
 
-    void DrawSudokuMatrixRow(int i)
+    void DrawSudokuPuzzleRow(int i)
     {
         if (i % 3 == 0)
         {
@@ -61,13 +86,13 @@ class SuDoKuFrame : FrameView
         }
 
         for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
-            DrawSudokuMatrixCell(i, j);
+            DrawSudokuPuzzleCell(i, j);
 
         if (i == _sudokuPuzzle.GetLength(0) - 1)
             DrawHorizontalSeparator(0, 9 + _iOffset);
     }
 
-    void DrawSudokuMatrixCell(int i, int j)
+    void DrawSudokuPuzzleCell(int i, int j)
     {
         if (j % 3 == 0)
         {
@@ -75,7 +100,7 @@ class SuDoKuFrame : FrameView
             _jOffset++;
         }
 
-        DrawSudokuMatrixEntry(i, j);
+        DrawSudokuPuzzleEntry(i, j);
 
         if (j == _sudokuPuzzle.GetLength(1) - 1)
         {
@@ -84,7 +109,7 @@ class SuDoKuFrame : FrameView
         }
     }
 
-    void DrawSudokuMatrixEntry(int i, int j)
+    void DrawSudokuPuzzleEntry(int i, int j)
     {
         DrawReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
         DrawNewSuDoKuTextField(i, j);
@@ -124,5 +149,14 @@ class SuDoKuFrame : FrameView
         sudokuNumberField.Y = i + _iOffset;
 
         Add(sudokuNumberField);
+    }
+
+    bool SudokuPuzzleHasEmptyField()
+    {
+        for (int i = 0; i < _sudokuPuzzle.GetLength(0); i++)
+            for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
+                if (_sudokuPuzzle[j, i] == 0) 
+                    return true;
+        return false;
     }
 }
