@@ -52,7 +52,7 @@ class SuDoKuFrame : FrameView
             DrawSudokuMatrixRow(i);
     }
 
-    private void DrawSudokuMatrixRow(int i)
+    void DrawSudokuMatrixRow(int i)
     {
         if (i % 3 == 0)
         {
@@ -67,7 +67,7 @@ class SuDoKuFrame : FrameView
             DrawHorizontalSeparator(0, 9 + _iOffset);
     }
 
-    private void DrawSudokuMatrixCell(int i, int j)
+    void DrawSudokuMatrixCell(int i, int j)
     {
         if (j % 3 == 0)
         {
@@ -84,7 +84,7 @@ class SuDoKuFrame : FrameView
         }
     }
 
-    private void DrawSudokuMatrixEntry(int i, int j)
+    void DrawSudokuMatrixEntry(int i, int j)
     {
         DrawReadOnlyTextField(" ", j + _jOffset + j * 2, i + _iOffset);
         DrawNewSuDoKuTextField(i, j);

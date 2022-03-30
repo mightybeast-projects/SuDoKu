@@ -20,6 +20,7 @@ class GUIGame
     public void StartGame(Difficulty difficulty)
     {
         _sudokuFrame.InitializeSudokuPuzzle(difficulty);
+        _menuFrame.EnablePuzzleButtons();
     }
 
     public void ResetGame()

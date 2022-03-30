@@ -1,15 +1,15 @@
 using System;
 using Terminal.Gui;
 
-class GeneratePuzzleButton : MenuButton
+class GenerateButton : MenuButton
 {
-    public GeneratePuzzleButton(GUIGame game) 
-        : base(game, "G", ": Generate new puzzle")
+    public GenerateButton(GUIGame game) 
+        : base(game, "G", ": Generate new SuDoKu")
     {
-        button.Clicked += ShowGeneratePuzzleDialog();
+        button.Clicked += ShowGenerateDialog();
     }
 
-    Action ShowGeneratePuzzleDialog()
+    Action ShowGenerateDialog()
     {
         return () =>
         {

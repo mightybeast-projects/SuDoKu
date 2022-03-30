@@ -2,17 +2,37 @@ using Terminal.Gui;
 
 class MenuFrame : FrameView
 {
+    GenerateButton _generateButton;
+    ResetButton _resetButton;
+    CheckButton _checkButton;
+    HintButton _hintButton;
+    ExitButton _exitButton;
+
     public MenuFrame(GUIGame game) : base()
     {
         InitializeFrameSettings();
 
-        GeneratePuzzleButton generateButton = new GeneratePuzzleButton(game);
-        ResetButton resetButton = new ResetButton(game);
-        CheckButton checkButton = new CheckButton(game);
+        _generateButton = new GenerateButton(game);
+        _resetButton = new ResetButton(game);
+        _checkButton = new CheckButton(game);
+        _exitButton = new ExitButton(game);
+        _hintButton = new HintButton(game);
 
-        Add(generateButton.button, generateButton.label);
-        Add(resetButton.button, resetButton.label);
-        Add(checkButton.button, checkButton.label);
+        MenuListView menuListView = new MenuListView();
+        menuListView.Add(_generateButton);
+        menuListView.Add(_resetButton);
+        menuListView.Add(_checkButton);
+        menuListView.Add(_hintButton);
+
+        Add(menuListView);
+        Add(_exitButton);
+    }
+
+    public void EnablePuzzleButtons()
+    {
+        _resetButton.button.Enabled = true;
+        _checkButton.button.Enabled = true;
+        _hintButton.button.Enabled = true;
     }
 
     void InitializeFrameSettings()

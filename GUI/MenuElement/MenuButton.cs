@@ -1,6 +1,6 @@
 using Terminal.Gui;
 
-class MenuButton
+class MenuButton : View
 {
     public Button button;
     public Label label;
@@ -8,6 +8,7 @@ class MenuButton
     protected GUIGame _game;
 
     public MenuButton(GUIGame game, string buttonText, string labelText)
+        : base()
     {
         _game = game;
 
@@ -15,5 +16,9 @@ class MenuButton
         label = new Label(labelText);
 
         label.X = 6;
+
+        Add(button, label);
+        Height = 1;
+        Width = Dim.Fill();
     }
 }

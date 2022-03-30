@@ -13,7 +13,7 @@ class SuDoKuTextField : TextField
 
     public override bool OnLeave(View view)
     {
-        if (Text == "" || TextIsNotANumber()) Text = ".";
+        if (Text == "" || Text.Length > 1 || TextIsNotANumber()) Text = ".";
         return base.OnLeave(view);
     }
 
