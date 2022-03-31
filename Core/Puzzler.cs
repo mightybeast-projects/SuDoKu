@@ -5,18 +5,18 @@ enum Difficulty { EASY, MEDIUM, HARD }
 
 class Puzzler
 {
-    Random _rnd = new Random();
-    Dictionary<Difficulty, int> _difficultyHints 
+    Dictionary<Difficulty, int> _difficultyHints
         = new Dictionary<Difficulty, int>()
     {
         { Difficulty.EASY, 45 },
         { Difficulty.MEDIUM, 35 },
         { Difficulty.HARD, 28 }
     };
-    int[,] _sudokuMatrix = new int[9,9];
+    Random _rnd = new Random();
+    int[,] _sudokuMatrix = new int[9, 9];
 
-    public int[,] GenerateSuDoKuPuzzle(
-        int[,] sudokuMatrix, Difficulty difficulty)
+    public int[,] GenerateSuDoKuPuzzle(int[,] sudokuMatrix, 
+        Difficulty difficulty)
     {
         _sudokuMatrix = sudokuMatrix.Clone() as int[,];
 

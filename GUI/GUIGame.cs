@@ -8,7 +8,7 @@ class GUIGame
     public void Init()
     {
         Application.Init();
-        
+
         _sudokuFrame = new SuDoKuFrame();
         _menuFrame = new MenuFrame(this);
 

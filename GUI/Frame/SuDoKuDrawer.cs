@@ -4,6 +4,7 @@ using Terminal.Gui;
 class SuDoKuDrawer : View
 {
     public TextField[,] sudokuFields;
+
     int[,] _fieldNumbers;
     int[,] _sudokuPuzzle;
     int _iOffset = 0;
@@ -17,8 +18,9 @@ class SuDoKuDrawer : View
 
     public void DrawSudokuPuzzle(int[,] sudokuPuzzle)
     {
-        RemoveAll();
         sudokuFields = new TextField[9, 9];
+        RemoveAll();
+
         _sudokuPuzzle = sudokuPuzzle;
         _iOffset = 0;
 
@@ -91,7 +93,7 @@ class SuDoKuDrawer : View
         var readOnlyField = new ReadOnlyTextField(text);
         readOnlyField.X = x;
         readOnlyField.Y = y;
-        
+
         Add(readOnlyField);
     }
 
@@ -103,7 +105,7 @@ class SuDoKuDrawer : View
         if (sudokuNumber == 0)
             sudokuNumberField = new SuDoKuTextField(".");
         else
-            sudokuNumberField 
+            sudokuNumberField
                 = new ReadOnlyTextField(sudokuNumber.ToString());
 
         sudokuNumberField.X = j + _jOffset + j * 2 + 1;

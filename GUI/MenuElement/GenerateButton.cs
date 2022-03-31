@@ -3,7 +3,7 @@ using Terminal.Gui;
 
 class GenerateButton : MenuButton
 {
-    public GenerateButton(GUIGame game) 
+    public GenerateButton(GUIGame game)
         : base(game, "G", ": Generate new SuDoKu")
     {
         button.Clicked += ShowGenerateDialog();

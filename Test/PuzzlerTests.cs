@@ -23,7 +23,7 @@ class PuzzlerTests : TestsSetup
 
     void AssertDifficulty(Difficulty difficulty, int hintsCount)
     {
-        _sudokuPuzzle = 
+        _sudokuPuzzle =
             _puzzler.GenerateSuDoKuPuzzle(_sudokuMatrix, difficulty);
 
         int emptySpaces = 0;
@@ -31,7 +31,7 @@ class PuzzlerTests : TestsSetup
             for (int j = 0; j < _sudokuPuzzle.GetLength(1); j++)
                 if (_sudokuPuzzle[i, j] == 0)
                     emptySpaces++;
-        
+
         Assert.AreEqual(81 - emptySpaces, hintsCount);
     }
 }

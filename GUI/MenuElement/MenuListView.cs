@@ -10,9 +10,9 @@ class MenuListView : View
         Height = Dim.Fill();
     }
 
-    public void Add(MenuButton menuButton)
+    public new void Add(View menuElement)
     {
-        menuButton.Y = currentY++;
-        base.Add(menuButton);
+        menuElement.Y = currentY++;
+        base.Add(menuElement);
     }
 }

@@ -23,7 +23,7 @@ class ColTests : TestsSetup
 
         for (int i = 0; i < _sudokuMatrix.GetLength(0); i++)
             if (!_numbersStorage.Contains(_sudokuMatrix[col, i]))
-                    _numbersStorage.Add(_sudokuMatrix[col, i]);
+                _numbersStorage.Add(_sudokuMatrix[col, i]);
 
         Assert.AreEqual(9, _numbersStorage.Count);
     }

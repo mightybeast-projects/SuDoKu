@@ -23,7 +23,7 @@ class RowTests : TestsSetup
 
         for (int i = 0; i < _sudokuMatrix.GetLength(0); i++)
             if (!_numbersStorage.Contains(_sudokuMatrix[i, row]))
-                    _numbersStorage.Add(_sudokuMatrix[i, row]);
+                _numbersStorage.Add(_sudokuMatrix[i, row]);
 
         Assert.AreEqual(9, _numbersStorage.Count);
     }

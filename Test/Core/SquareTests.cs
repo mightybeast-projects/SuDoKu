@@ -21,15 +21,15 @@ class SquareTests : TestsSetup
 
     void AssertSquareIsTrulyRandom(Vector2 squareOrigin)
     {
-        int squareOriginX = (int) squareOrigin.X;
-        int squareOriginY = (int) squareOrigin.Y;
+        int squareOriginX = (int)squareOrigin.X;
+        int squareOriginY = (int)squareOrigin.Y;
         _numbersStorage = new List<int>();
 
         for (int i = squareOriginX; i < squareOriginX + 3; i++)
             for (int j = squareOriginY; j < squareOriginY + 3; j++)
                 if (!_numbersStorage.Contains(_sudokuMatrix[i, j]))
                     _numbersStorage.Add(_sudokuMatrix[i, j]);
-        
+
         Assert.AreEqual(9, _numbersStorage.Count);
     }
 }

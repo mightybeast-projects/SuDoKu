@@ -13,7 +13,7 @@ class CoreTest
         _sudokuMatrix = _sudoku.GenerateSuDoKu();
 
         _puzzler = new Puzzler();
-        _sudokuPuzzle = 
+        _sudokuPuzzle =
             _puzzler.GenerateSuDoKuPuzzle(_sudokuMatrix, Difficulty.EASY);
 
         PrintMatrix(_sudokuMatrix);
@@ -35,7 +35,7 @@ class CoreTest
                 else
                     Console.Write(" . ");
             }
-            
+
             Console.WriteLine("|");
         }
         Console.WriteLine("+---------+---------+---------+");

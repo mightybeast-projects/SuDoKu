@@ -3,9 +3,9 @@ using Terminal.Gui;
 class MenuButton : View
 {
     public Button button;
-    public Label label;
 
     protected GUIGame _game;
+    Label label;
 
     public MenuButton(GUIGame game, string buttonText, string labelText)
         : base()

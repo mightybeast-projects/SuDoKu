@@ -2,6 +2,7 @@ using Terminal.Gui;
 
 class MenuFrame : FrameView
 {
+    MenuListView _menuListView;
     GenerateButton _generateButton;
     ResetButton _resetButton;
     CheckButton _checkButton;
@@ -11,20 +12,10 @@ class MenuFrame : FrameView
     public MenuFrame(GUIGame game) : base()
     {
         InitializeFrameSettings();
+        InstantiateButtons(game);
+        InstantiateMenuListView();
 
-        _generateButton = new GenerateButton(game);
-        _resetButton = new ResetButton(game);
-        _checkButton = new CheckButton(game);
-        _exitButton = new ExitButton(game);
-        _hintButton = new HintButton(game);
-
-        MenuListView menuListView = new MenuListView();
-        menuListView.Add(_generateButton);
-        menuListView.Add(_resetButton);
-        menuListView.Add(_checkButton);
-        menuListView.Add(_hintButton);
-
-        Add(menuListView);
+        Add(_menuListView);
         Add(_exitButton);
     }
 
@@ -44,5 +35,25 @@ class MenuFrame : FrameView
         X = 33;
         Y = Pos.Center();
         Border.BorderStyle = BorderStyle.Double;
+    }
+
+    void InstantiateMenuListView()
+    {
+        _menuListView = new MenuListView();
+        _menuListView.Add(new Label("[ Alt + key ] or click with mouse"));
+        _menuListView.Add(new Label(" "));
+        _menuListView.Add(_generateButton);
+        _menuListView.Add(_resetButton);
+        _menuListView.Add(_checkButton);
+        _menuListView.Add(_hintButton);
+    }
+
+    void InstantiateButtons(GUIGame game)
+    {
+        _generateButton = new GenerateButton(game);
+        _resetButton = new ResetButton(game);
+        _checkButton = new CheckButton(game);
+        _exitButton = new ExitButton(game);
+        _hintButton = new HintButton(game);
     }
 }
