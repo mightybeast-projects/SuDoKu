@@ -15,6 +15,7 @@ class MenuFrame : FrameView
         InstantiateButtons(game);
         InstantiateMenuListView();
 
+        Add(new Label("[ Alt + key ] or click with mouse"));
         Add(_menuListView);
         Add(_exitButton);
     }
@@ -40,8 +41,7 @@ class MenuFrame : FrameView
     void InstantiateMenuListView()
     {
         _menuListView = new MenuListView();
-        _menuListView.Add(new Label("[ Alt + key ] or click with mouse"));
-        _menuListView.Add(new Label(" "));
+        _menuListView.Y = 2;
         _menuListView.Add(_generateButton);
         _menuListView.Add(_resetButton);
         _menuListView.Add(_checkButton);
