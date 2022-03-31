@@ -1,7 +1,10 @@
+using System;
 using Terminal.Gui;
 
 class SuDoKuDrawer : View
 {
+    public TextField[,] sudokuFields;
+    int[,] _fieldNumbers;
     int[,] _sudokuPuzzle;
     int _iOffset = 0;
     int _jOffset = 0;
@@ -15,11 +18,23 @@ class SuDoKuDrawer : View
     public void DrawSudokuPuzzle(int[,] sudokuPuzzle)
     {
         RemoveAll();
+        sudokuFields = new TextField[9, 9];
         _sudokuPuzzle = sudokuPuzzle;
         _iOffset = 0;
 
         for (int i = 0; i < _sudokuPuzzle.GetLength(0); i++)
             DrawSudokuPuzzleRow(i);
+    }
+
+    public int[,] GetFieldNumbers()
+    {
+        _fieldNumbers = new int[9, 9];
+
+        for (int i = 0; i < sudokuFields.GetLength(0); i++)
+            for (int j = 0; j < sudokuFields.GetLength(1); j++)
+                GetFieldNumber(i, j);
+
+        return _fieldNumbers;
     }
 
     void DrawSudokuPuzzleRow(int i)
@@ -88,11 +103,21 @@ class SuDoKuDrawer : View
         if (sudokuNumber == 0)
             sudokuNumberField = new SuDoKuTextField(".");
         else
-            sudokuNumberField = new ReadOnlyTextField(sudokuNumber.ToString());
+            sudokuNumberField 
+                = new ReadOnlyTextField(sudokuNumber.ToString());
 
         sudokuNumberField.X = j + _jOffset + j * 2 + 1;
         sudokuNumberField.Y = i + _iOffset;
 
+        sudokuFields[i, j] = sudokuNumberField;
         Add(sudokuNumberField);
+    }
+
+    void GetFieldNumber(int i, int j)
+    {
+        string fieldText = sudokuFields[i, j].Text.ToString();
+        if (fieldText == ".") fieldText = "0";
+        int fieldNumber = Int32.Parse(fieldText);
+        _fieldNumbers[j, i] = fieldNumber;
     }
 }

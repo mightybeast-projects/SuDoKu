@@ -20,7 +20,7 @@ class CoreTest
         PrintMatrix(_sudokuPuzzle);
     }
 
-    void PrintMatrix(int[,] matrix)
+    public void PrintMatrix(int[,] matrix)
     {
         for (int i = matrix.GetLength(0) - 1; i >= 0; i--)
         {

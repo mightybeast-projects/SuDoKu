@@ -5,6 +5,7 @@ class SuDoKuFrame : FrameView
 {
     Difficulty _puzzleDifficulty;
     SuDoKuDrawer _sudokuDrawer;
+    int[,] _fieldNumbers;
     int[,] _sudokuMatrix;
     int[,] _sudokuPuzzle;
     int[,] _sudokuPuzzleCopy;
@@ -29,22 +30,44 @@ class SuDoKuFrame : FrameView
         _sudokuDrawer.DrawSudokuPuzzle(_sudokuPuzzle);
     }
 
+    public bool CheckSudokuPuzzle()
+    {
+        _fieldNumbers = _sudokuDrawer.GetFieldNumbers();
+
+        return CompareFieldNumbersWithMatrix();
+    }
+
+    private bool CompareFieldNumbersWithMatrix()
+    {
+        for (int i = 0; i < _sudokuMatrix.GetLength(0); i++)
+            for (int j = 0; j < _sudokuMatrix.GetLength(1); j++)
+                if (_fieldNumbers[j, i] != _sudokuMatrix[j, i])
+                    return false;
+        return true;
+    }
+
     public void ShowHint()
     {
         if (!SudokuPuzzleHasEmptyField()) return;
 
+        _sudokuPuzzle = _sudokuDrawer.GetFieldNumbers();
+        ChooseAndShowRandomHint();
+        _sudokuDrawer.DrawSudokuPuzzle(_sudokuPuzzle);
+    }
+
+    private void ChooseAndShowRandomHint()
+    {
         Random rnd = new Random();
         int i, j;
-        while(true)
+        while (true)
         {
             i = rnd.Next(9);
             j = rnd.Next(9);
-            if (_sudokuPuzzle[j, i] == 0) break;
+            if (_sudokuPuzzle[j, i] == 0 ||
+                _sudokuPuzzle[j, i] != _sudokuMatrix[j, i]) break;
         }
 
         _sudokuPuzzle[j, i] = _sudokuMatrix[j, i];
-
-        _sudokuDrawer.DrawSudokuPuzzle(_sudokuPuzzle);
     }
 
     void InitializeFrameSettings()

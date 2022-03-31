@@ -28,6 +28,11 @@ class GUIGame
         _sudokuFrame.ResetSudokuPuzzle();
     }
 
+    public bool CheckSudoku()
+    {
+        return _sudokuFrame.CheckSudokuPuzzle();
+    }
+
     public void GiveAHint()
     {
         _sudokuFrame.ShowHint();

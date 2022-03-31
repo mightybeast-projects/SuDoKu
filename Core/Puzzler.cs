@@ -15,7 +15,8 @@ class Puzzler
     };
     int[,] _sudokuMatrix = new int[9,9];
 
-    public int[,] GenerateSuDoKuPuzzle(int[,] sudokuMatrix, Difficulty difficulty)
+    public int[,] GenerateSuDoKuPuzzle(
+        int[,] sudokuMatrix, Difficulty difficulty)
     {
         _sudokuMatrix = sudokuMatrix.Clone() as int[,];
 
